@@ -19,9 +19,9 @@ var Controls = function() {
     // Arrows
     37: 'left', 39: 'right', 38: 'front', 40: 'back',
     // WASD
-    65: 'left', 68: 'right', 87: 'front', 83: 'back',
+    65: 'left', 68: 'right', 87: 'front', 83: 'back', 81: 'strafeLeft', 69: 'strafeRight'
   };
-  this.states = {left: false, right: false, front: false, back: false};
+  this.states = {left: false, right: false, front: false, back: false,strafeLeft:false, strafeRight:false};
 
   // Setup the DOM listeners.
   document.addEventListener('keydown', this.key.bind(this, true), false);
@@ -37,7 +37,7 @@ Controls.prototype = {
    * @param  {Object} event   DOM event data including the key being pressed.
    */
   key: function(pressed, event) {
-    var state = this.codes[event.keyCode];
+    var state = this.codes[event.keyCode] || this.codes[event.key];
 
     if (!state) {
       return;
@@ -75,6 +75,9 @@ Controls.prototype = {
    * @param  {Object} event DOM event data including the position touched.
    */
   touchEnd: function(event) {
+    this.states.strafeLeft = false;
+    this.states.strafeRight = false;
+
     this.states.left = false;
     this.states.right = false;
     this.states.front = false;

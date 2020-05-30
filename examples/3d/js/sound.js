@@ -27,8 +27,8 @@ var Sound = function() {
   });
 
   // Begin playing background sounds.
-  this.rain();
-  this.thunder();
+  // this.rain();
+  // this.thunder();
 };
 Sound.prototype = {
   /**

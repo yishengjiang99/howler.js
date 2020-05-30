@@ -64,6 +64,20 @@ Player.prototype = {
     Howler.pos(this.x, this.y, -0.5);
   },
 
+  strafe: function(dist){
+    _console.log("strafing "+dist);
+    var dx = Math.sin(this.dir) * dist;
+    var dy = - Math.cos(this.dir) * dist;
+
+    // Move the player if they can walk here.
+    this.x += (game.map.check(this.x + dx, this.y) <= 0) ? dx : 0;
+    this.y += (game.map.check(this.x, this.y + dy) <= 0) ? dy : 0;
+
+    this.steps += dist;
+
+    // Update the position of the audio listener.
+    Howler.pos(this.x, this.y, -0.5);
+  },
   /**
    * Update the player position and rotation on each tick.
    * @param  {Number} secs Seconds since last update.
@@ -75,5 +89,8 @@ Player.prototype = {
     if (states.right) this.rotate(Math.PI * secs);
     if (states.front) this.walk(this.speed * secs);
     if (states.back) this.walk(-this.speed * secs);
+    if (states.strafeLeft) this.strafe(this.speed * secs);
+    if (states.strafeRight) this.strafe(-this.speed * secs);
+
   }
 };

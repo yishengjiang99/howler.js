@@ -26,7 +26,7 @@ var Game = function () {
 
   // Setup our different game components.
   this.audio = new Sound();
-  this.player = new Player(10, 26, Math.PI * 1.9, 1);
+  this.player = new Player(1, 1, Math.PI * 1.9, 1);
   this.controls = new Controls();
   this.map = new Map(25);
   this.camera = new Camera(isMobile ? 256 : 512);
@@ -57,7 +57,7 @@ document.querySelector("#start").onclick = function () {
   this.style.display = "none";
   // Setup and start the new game instance.
   game = new Game();
-
+  game.map.setup();
   // Generate the new map.
 
   Mouse.setup({
